@@ -1,10 +1,6 @@
 <!-- Author: Kailash kumar
      Two way binding in pure javascript
 -->
-
-
-
-
 <!-- input text field-->
 <input type="text" id="username">
 Username: <span id="viewer"></span>
@@ -19,8 +15,10 @@ Username: <span id="viewer"></span>
     var userInput = document.getElementById('username');
     var userView = document.getElementById('viewer');
 
+    /**
+        watch and get, set property of object
+    */
     var watch = function(object, property, callback){
-        debugger;
         var val = object[property];
         delete object[property];
 
@@ -38,13 +36,14 @@ Username: <span id="viewer"></span>
     }
     
 
+    // Update object property with new value.
     watch(user, 'username', function(newValue){
-        debugger;
         userInput.value = newValue;
         userView.textContent = newValue;
     });
 
-    userInput.addEventListener('input', function(){
+    // bind event listener 
+    userInput.addEventListener('keyup', function(){
         user.username = userInput.value;
     });
 
