@@ -1,0 +1,51 @@
+<!-- Author: Kailash kumar
+     Two way binding in pure javascript
+-->
+
+
+
+
+<!-- input text field-->
+<input type="text" id="username">
+Username: <span id="viewer"></span>
+
+<script>
+
+    // initial user object 
+    var user = {
+        username: ""
+    };
+
+    var userInput = document.getElementById('username');
+    var userView = document.getElementById('viewer');
+
+    var watch = function(object, property, callback){
+        debugger;
+        var val = object[property];
+        delete object[property];
+
+        Object.defineProperty(object, property, {
+            configurable: false,
+            enumerable: false,
+            get: function(){
+                return val;
+            },
+            set: function(newVal){
+                val = newVal;
+                callback(newVal);
+            }
+        });
+    }
+    
+
+    watch(user, 'username', function(newValue){
+        debugger;
+        userInput.value = newValue;
+        userView.textContent = newValue;
+    });
+
+    userInput.addEventListener('input', function(){
+        user.username = userInput.value;
+    });
+
+</script>
